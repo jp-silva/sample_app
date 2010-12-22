@@ -8,18 +8,18 @@
     	<span class="num"><%=concorrente.num %></span> <br/>
 	<b>criado em:</b>
     	<span class="criado"><%=concorrente.created_at.inspect %></span> <br/>
-
-	<% if (current_user?(concorrente.user || current_user.admin?))  %>
-	  <td>
-	    <%= link_to "delete", concorrente, :method => :delete,
-	                                     :confirm => "You sure?",
-	                                     :title => concorrente.nome %>
-	  </td>
-	  <td>
-	    <%= link_to "editar",edit_concorrente_path(concorrente) %>
-	  </td>
+	<% if signed_in? %>
+		<% if (current_user?(concorrente.user) || current_user.admin?)  %>
+		  <td>
+		    <%= link_to "delete", concorrente, :method => :delete,
+		                                     :confirm => "You sure?",
+		                                     :title => concorrente.nome %>
+		  </td>
+		  <td>
+		    <%= link_to "editar",edit_concorrente_path(concorrente) %>
+		  </td>
+	    <% end %>
     <% end %>
-
 
 
   </td>
