@@ -1,0 +1,23 @@
+<tr>
+  <td class="concorrentes">
+    <b>nome: </b>
+		<span class="nome"><%= concorrente.nome %></span> <br/>
+    <b>e-mail: </b>
+		<span class="email"><%=concorrente.email %></span> <br/>
+	<b>número de aluno</b> 
+    	<span class="num"><%=concorrente.num %></span> <br/>
+	<b>criado em:</b>
+    	<span class="criado"><%=concorrente.created_at.inspect %></span> <br/>
+
+	<% if (current_user?(concorrente.user) || current_user.admin?)  %>
+	  <td>
+	    <%= link_to "delete", concorrente, :method => :delete,
+	                                     :confirm => "You sure?",
+	                                     :title => concorrente.nome %>
+	  </td>
+    <% end %>
+
+
+
+  </td>
+</tr>

@@ -18,6 +18,16 @@ namespace :db do
                    :email => email,
                    :password => password,
                    :password_confirmation => password)
+                   end
+                   
+       User.all(:limit => 6).each do |user|
+          3.times do
+            user.concorrentes.create!(:email =>"a@a.com",
+                                      :num => Faker::Lorem.sentence(5),
+                                      :nome => Faker::Lorem.sentence(5))
+                 end
+
+
     end
   end
 end

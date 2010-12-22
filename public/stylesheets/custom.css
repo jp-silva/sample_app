@@ -137,7 +137,7 @@ td.sidebar {
   margin-bottom: -15px;
 }
 
-//definições para signup
+/*definições para signup*/
 div.field, div.actions {
   margin-bottom: 10px;
 }
@@ -185,11 +185,68 @@ div.field, div.actions {
   list-style: square;
 }
 
-//para o index
+/*para o index */
 ul.users {
   margin-top: 1em;
 }
 
 .users li {
   list-style: none;
+}
+
+
+/*concorrentes*/
+h1.concorrente {
+  margin-bottom: 0.3em;
+}
+
+table.concorrentes {
+  margin-top: 1em;
+}
+
+table.concorrentes tr {
+  height: 70px;
+}
+
+table.concorrentes tr td.gravatar {
+  border-top: 1px solid #ccc;
+  vertical-align: top;
+  width: 50px;
+}
+
+table.concorrentes tr td.concorrente {
+  border-top: 1px solid #ccc;
+  vertical-align: top;
+  padding-top: 10px;
+}
+
+table.concorrentes tr td.concorrente span.timestamp {
+  display: block;
+  font-size: 85%;
+  color: #666;
+}
+
+div.user_info img {
+  padding-right: 0.1em;
+}
+
+div.user_info a {
+  text-decoration: none;
+}
+
+div.user_info span.user_name {
+  position: absolute;
+}
+
+div.user_info span.concorrentes {
+  font-size: 80%;
+}
+
+form.new_concorrente {
+  margin-bottom: 2em;
+}
+
+form.new_concorrente textarea {
+  height: 4em;
+  margin-bottom: 0;
 }

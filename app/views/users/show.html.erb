@@ -3,12 +3,28 @@
     <td class="main">
       <h1>
         <%= gravatar_for @user %>
+		<%= !@user.admin? ? "Grupo " : "" %>
         <%= @user.name %>
       </h1>
+    
+
+		<% unless @user.concorrentes.empty? %>
+			<table class="concorrentes" summary="concorrentes do grupo">
+			<br/>
+			<h3>Concorrentes</h3>
+		    	<%= render @concorrentes %>
+	        </table>
+		        <%= will_paginate @concorrentes %>
+		 <% end %>
     </td>
+
     <td class="sidebar round">
       <strong>Name</strong> <%= @user.name %><br />
       <strong>URL</strong>  <%= link_to user_path(@user), @user %>
+	  <strong>Concorrentes</strong> <%= @user.concorrentes.count %>
+	  <br/>
+	  <br/>
+      <%= link_to "Associar novo concorrente ao grupo", novo_concorrente_path %>
     </td>
   </tr>
 </table>
