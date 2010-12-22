@@ -1,7 +1,7 @@
 SampleApp::Application.routes.draw do
   
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :concorrentes, :only => [:new, :create, :destroy]
+  resources :concorrentes
   resources :users
   
   get "sessions/new"
@@ -18,6 +18,7 @@ SampleApp::Application.routes.draw do
   match '/signout', :to => 'sessions#destroy'
   
   match '/novo_concorrente', :to => 'concorrentes#new'
+  #match '/editar_concorrente', :to => 'concorrentes#edit'
 
 
   # The priority is based upon order of creation:

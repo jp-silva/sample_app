@@ -22,6 +22,23 @@ class ConcorrentesController < ApplicationController
       @concorrente.destroy
       redirect_back_or current_user
   end
+  
+  
+  def edit
+      @title = "Editar concorrente"
+      @concorrente = Concorrente.find(params[:id])
+  end
+
+  def update
+    @concorrente = Concorrente.find(params[:id])
+    if @concorrente.update_attributes(params[:concorrente])
+      flash[:success] = "Profile updated."
+      redirect_back_or @concorrente.user
+    else
+      @title = "Editar concorrente"
+      render 'edit'
+    end
+  end
 
 
   private
