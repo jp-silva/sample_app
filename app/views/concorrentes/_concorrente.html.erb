@@ -9,7 +9,7 @@
 	<b>criado em:</b>
     	<span class="criado"><%=concorrente.created_at.inspect %></span> <br/>
 
-	<% if (current_user?(concorrente.user) || current_user.admin?)  %>
+	<% if (current_user?(concorrente.user || current_user.admin?))  %>
 	  <td>
 	    <%= link_to "delete", concorrente, :method => :delete,
 	                                     :confirm => "You sure?",
