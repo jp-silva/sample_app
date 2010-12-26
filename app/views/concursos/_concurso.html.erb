@@ -1,0 +1,10 @@
+<li>
+  <%= link_to concurso.tit, concurso %>
+  <% if current_user.admin? %>
+   |	<%= link_to "delete", concurso, :method => :delete,
+									 :confirm => "You sure?",
+                               	 :title => "Delete #{concurso.tit}" %>
+ 
+	
+  <% end %>
+</li>
