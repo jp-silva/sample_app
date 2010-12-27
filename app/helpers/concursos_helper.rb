@@ -11,9 +11,8 @@ module ConcursosHelper
   def tAux(concurso)
     participante(concurso).dataRegisto += concurso.dur.hour
     return participante(concurso).dataRegisto.advance(:minutes=>concurso.dur.min)
- #   participante(concurso).dataRegisto -=  DateTime.now
-#    return participante(concurso).dataRegisto
   end
+  
   def tRestante(concurso)
     return ((tAux(concurso) - DateTime.now) / 60).to_int
   end

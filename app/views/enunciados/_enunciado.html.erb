@@ -1,0 +1,20 @@
+<tr>
+  <td class="enunciados">
+    <b>titulo: </b>
+		<span class="enunciado"><%= enunciado.titulo %></span> <br/>
+	<% if signed_in? %>
+		<% if (current_user.admin?)  %>
+		  <td>
+		    <%= link_to "delete", enunciado, :method => :delete,
+		                                     :confirm => "You sure?",
+		                                     :title => enunciado.titulo %>
+		  </td>
+		  <td>
+		    <%= link_to "editar",edit_enunciado_path(enunciado) %>
+		  </td>
+	    <% end %>
+    <% end %>
+
+
+  </td>
+</tr>

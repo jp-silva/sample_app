@@ -1,20 +1,28 @@
 SampleApp::Application.routes.draw do
   
-  get "participantes/index"
-
-  get "participantes/create"
-
-#  get "concursos/index"
-#  get "concursos/new"
-#  get "concursos/show"
-#  get "concursos/destroy"
-#  get "concursos/create"
+# get "funcoes/index"
+# get "funcoes/new"
+# get "linguagens/index"
+# get "linguagens/new"
+# get "enunciado/show" 
+# get "enunciado/new" 
+# get "participantes/index"
+# get "participantes/create"
+# get "concursos/index"
+# get "concursos/new"
+# get "concursos/show"
+# get "concursos/destroy"
+# get "concursos/create"
 
   resources :sessions, :only => [:new, :create, :destroy]
   resources :concorrentes
   resources :users
   resources :concursos
   resources :participantes
+  resources :enunciados 
+  resources :languages# , :only => [:new,:create,:destroy,:index]
+  resources :functions #, :only => [:new,:create,:destroy,:index]  
+
   
   get "sessions/new"
 

@@ -5,7 +5,7 @@
 			<h1><b>Concurso</b>  <%= @concurso.tit %></h1>
 			<table class="concurso" summary="concorrentes do grupo">
 				<tr>
-				  <td class="concorrentes">
+				  <td class="concursos">
 				    <b>Título: </b>
 						<span class="titulo"><%= @concurso.tit %></span> <br/>
 					<% if current_user.admin? %>	
@@ -27,11 +27,21 @@
 							<%=	@concurso.dur.hour %>:<%=@concurso.dur.min %>
 						</span> <br/>	
 				  	</td>
+
 				</tr>
+				
+
+				<% unless @enunciados.nil? %>
+					<b>Enunciados</b>
+		    		<%= render @enunciados %>
+				<% end %>		
+				
 			</table>
 		</td>
-	
-    	<%= render 'concursos/sideBar'%>
+		
+		<%= render 'concursos/sidebar'%>
+		
+
 
   </tr>
 </table>

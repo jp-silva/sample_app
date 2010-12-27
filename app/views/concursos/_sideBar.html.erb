@@ -4,7 +4,8 @@
   		<br/>
   		<%= link_to "Eliminar concurso", @concurso, :method => :delete,
                                      			:confirm => "You sure?",
-                                     			:title => @concurso.tit %>
+                                     			:title => @concurso.tit %><br/>
+ 		<%= link_to "Adicionar enunciado", new_enunciado_path(:concurso_id=>@concurso.id) %>
 	<% end %>
 	<br/>
 	<%= link_to "Listar Participantes", participantes_path(:concurso_id => @concurso.id) %>	

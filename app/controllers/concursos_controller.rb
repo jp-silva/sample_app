@@ -37,6 +37,15 @@ class ConcursosController < ApplicationController
         @participante = Participante.new 
       end
     end
+    
+    if(participante(@concurso))
+      if(tRestante(@concurso)>0 && participante(@concurso))
+        @enunciados = @concurso.enunciados
+      else
+        @enunciados = nil
+      end
+    end
+    
   end
 
   def destroy
@@ -53,8 +62,18 @@ class ConcursosController < ApplicationController
     end
     
     def participante(concurso)
-      aux = Participante.where(:user_id=>current_user.id , :concurso_id=>concurso.id).first
+      return aux = Participante.where(:user_id=>current_user.id , :concurso_id=>@concurso.id).first
     end
+    
+    def tAux(concurso)
+      participante(concurso).dataRegisto += concurso.dur.hour
+      return participante(concurso).dataRegisto.advance(:minutes=>concurso.dur.min)
+    end
+    
+    def tRestante(concurso)
+      return ((tAux(concurso) - DateTime.now) / 60).to_int
+    end
+    
 
 
 end

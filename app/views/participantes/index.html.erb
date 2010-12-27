@@ -2,20 +2,27 @@
 	<tr>
 		<td>
 			<h1>Participantes</h1>
-
-
-			<%= will_paginate %>
-
-			<ul class="concursos">
-			  <%= render @participantes %>
-			</ul>
-
-			<%= will_paginate %>
-		</td>
-		
+			<% if !@participantes.empty? %>
+			
+				<%= will_paginate %>
+			
+				<ul class="participantes">
+				  <%= render @participantes %>
+				</ul>
+	
+				<%= will_paginate %>
+			<% else %>	
+				<ul class="participantes">
+					Actualmente não existem participantes neste concurso!
+				</ul>
+			<% end %>	
+			</td>
+			
 		<td class="sidebar round">
-			<%= link_to "Voltar para o concurso", Concurso.find(@participantes.first.concurso_id) %>
+			<%= link_to "Voltar para o concurso", Concurso.find(@concurso_id) %>
 		</td>
-		
+	
 	</tr>
 </table>
+
+

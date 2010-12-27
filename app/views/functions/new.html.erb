@@ -1,0 +1,12 @@
+<h1>Criar nova funcao</h1>
+
+<%= form_for @function do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <div class="field">
+    <%= f.label :func %><br />
+    <%= f.text_field :func %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Criar" %>
+  </div>
+<% end %>

@@ -1,9 +1,10 @@
 class ParticipantesController < ApplicationController
   before_filter :authenticate, :only => [:create]
-  
+  before_filter :admin_user, :only => [:destroy]
   
   def index
-    @participantes = Concurso.find(params[:concurso_id]).participantes.paginate(:page => params[:page])
+    @concurso_id = params[:concurso_id]
+    @participantes = Concurso.find(@concurso_id).participantes.paginate(:page => params[:page])
   end
 
   
@@ -22,5 +23,17 @@ class ParticipantesController < ApplicationController
       render 'concursos/show'
     end
   end
+  
+  def destroy
+    redirect_back_or @participantes.first.concurso
+    Participante.find(params[:id]).destroy
+  end
 
+
+  private 
+  
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
+    
 end

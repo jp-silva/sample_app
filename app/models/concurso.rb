@@ -18,12 +18,13 @@ class Concurso < ActiveRecord::Base
   belongs_to :user
   
   has_many :participantes, :dependent => :destroy
+  has_many :enunciados, :dependent => :destroy
   
   #attr_accessor :chave
   attr_accessible :tit, :chave, :inicio, :fim, :dur
   
   validates :tit, :presence=>true, :length => { :maximum => 100 }
-  validates :chave, :presence=>true
+  validates :chave, :presence=>true, :length => { :maximum => 100 }
   validates :inicio, :presence=>true
   validates :fim, :presence=>true
   validates :dur, :presence=>true

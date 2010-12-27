@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101226133802) do
+ActiveRecord::Schema.define(:version => 20101227221009) do
 
   create_table "concorrentes", :force => true do |t|
     t.string   "nome"
@@ -30,6 +30,29 @@ ActiveRecord::Schema.define(:version => 20101226133802) do
     t.datetime "inicio"
     t.datetime "fim"
     t.time     "dur"
+  end
+
+  create_table "enunciados", :force => true do |t|
+    t.string   "titulo"
+    t.string   "desc"
+    t.integer  "funcao_id"
+    t.integer  "peso"
+    t.integer  "linguagem_id"
+    t.integer  "concurso_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "functions", :force => true do |t|
+    t.string   "func"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "languages", :force => true do |t|
+    t.string   "ling"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "participantes", :force => true do |t|
