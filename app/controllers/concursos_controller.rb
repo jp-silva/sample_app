@@ -29,7 +29,14 @@ class ConcursosController < ApplicationController
   def show
     @concurso = Concurso.find(params[:id])
     @title = @concurso.tit
-    @participante = Participante.new #if signed_in?
+    if signed_in?
+      d = participante(@concurso) 
+      if d
+        @participante = d
+      else
+        @participante = Participante.new 
+      end
+    end
   end
 
   def destroy
@@ -43,6 +50,10 @@ class ConcursosController < ApplicationController
   
     def admin_user
       redirect_to(root_path) unless current_user.admin?
+    end
+    
+    def participante(concurso)
+      aux = Participante.where(:user_id=>current_user.id , :concurso_id=>concurso.id).first
     end
 
 

@@ -17,6 +17,8 @@
 class Concurso < ActiveRecord::Base
   belongs_to :user
   
+  has_many :participantes, :dependent => :destroy
+  
   #attr_accessor :chave
   attr_accessible :tit, :chave, :inicio, :fim, :dur
   

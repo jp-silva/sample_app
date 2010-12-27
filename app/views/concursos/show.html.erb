@@ -22,21 +22,16 @@
 							<%=@concurso.fim.day%>-<%=	@concurso.fim.month%>-<%=@concurso.fim.year%> 
 							<%=	@concurso.fim.hour %>:<%=@concurso.fim.min %>
 						</span> <br/>
+					<b>Duração: </b> 
+				    	<span class="dur">
+							<%=	@concurso.dur.hour %>:<%=@concurso.dur.min %>
+						</span> <br/>	
 				  	</td>
 				</tr>
 			</table>
 		</td>
 	
-    	<td class="sidebar round">
-			<% if current_user.admin? %>
-	      		<%= link_to "Editar concurso", edit_concurso_path(@concurso) %>
-		  		<br/>
-	      		<%= link_to "Eliminar concurso", @concurso, :method => :delete,
-		                                     			:confirm => "You sure?",
-		                                     			:title => @concurso.tit %>
-			<% end %>
-			
-	    </td>
+    	<%= render 'concursos/sideBar'%>
 
   </tr>
 </table>

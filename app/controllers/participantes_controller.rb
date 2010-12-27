@@ -1,16 +1,25 @@
 class ParticipantesController < ApplicationController
+  before_filter :authenticate, :only => [:create]
+  
+  
   def index
+    @participantes = Concurso.find(params[:concurso_id]).participantes.paginate(:page => params[:page])
   end
 
   
   def create
-    @participante = current_user.concursos.build(params[:concurso])
-    if @participante.save
-      flash[:success] = "Está !"
-      redirect_to concursos_path
+    @concurso = Concurso.find(params[:participante][:concurso_id])
+    @participante = @concurso.participantes.build(params[:participante])
+    if params[:participante][:chave] == @concurso.chave
+      if @participante.save
+        flash[:success] = "Sucesso. Pode comecar a participar no concurso!"
+        redirect_to concurso_path(@concurso)
+      else
+        render 'concursos/show'
+      end
     else
-      @title = "Novo concurso"
-      render 'new'
+      flash.now[:error] = "Chave incorrecta!"
+      render 'concursos/show'
     end
   end
 
