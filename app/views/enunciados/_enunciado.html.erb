@@ -1,7 +1,6 @@
 <tr>
   <td class="enunciados">
-    <b>titulo: </b>
-		<span class="enunciado"><%= enunciado.titulo %></span> <br/>
+    <%= link_to enunciado.titulo, enunciado %>
 	<% if signed_in? %>
 		<% if (current_user.admin?)  %>
 		  <td>

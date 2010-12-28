@@ -1,2 +1,33 @@
-<h1>Enunciado#show</h1>
-<p>Find me in app/views/enunciado/show.html.erb</p>
+<table class="concurso" summary="Informacao concurso">
+	<tr>
+		
+    	<td class="main">
+			<h1><b>Enunciado</b>  <%= @enunciado.titulo %></h1>
+			<table class="enunciado" summary="concorrentes do grupo">
+				<tr>
+				  <td class="enunciado">
+				    <b>Descricao: </b>
+						<span class="enunciado"><%= @enunciado.desc %></span> <br/>
+				    <b>Peso: </b>
+						<span class="enunciado"><%= @enunciado.peso %></span> <br/>
+					<b>funcao de aval: </b> 
+				    	<span class="func">
+							<%=@function.func%>
+						</span> <br/>
+					<b>Linguagem: </b> 
+				    	<span class="func">
+							<%=@language.ling%>
+						</span> <br/>
+				  	</td>
+
+				</tr>
+				
+			</table>
+		</td>
+		
+
+		<%= render 'enunciados/sidebar'%>
+
+
+  </tr>
+</table>

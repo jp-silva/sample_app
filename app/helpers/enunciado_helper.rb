@@ -2,7 +2,7 @@ module EnunciadoHelper
   
   def arrayLing
     array = Array.new
-    Linguagem.all.each do |l|
+    Language.all.each do |l|
       array << [l.ling,l.id]
     end
     return array
@@ -10,7 +10,7 @@ module EnunciadoHelper
 
   def arrayFunc
     array = Array.new
-    Funcao.all.each do |f|
+    Function.all.each do |f|
       array << [f.func,f.id]
     end
     return array
