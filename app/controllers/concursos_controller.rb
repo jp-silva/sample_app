@@ -24,6 +24,8 @@ class ConcursosController < ApplicationController
       @title = "Novo concurso"
       render 'new'
     end
+	
+	createFolder
   end
   
   def show
@@ -39,7 +41,7 @@ class ConcursosController < ApplicationController
     end
     
     if(participante(@concurso))
-      if(tRestante(@concurso)>0 && participante(@concurso))
+      if( ( tRestante(@concurso)>0 && participante(@concurso) )    || current_user.admin?) 
         @enunciados = @concurso.enunciados
       else
         @enunciados = nil
@@ -75,5 +77,18 @@ class ConcursosController < ApplicationController
     end
     
 
+	private
+	
+		def createFolder
+			path = File.join(Rails.root, "public/images/concursos")
+			if !File.exists?(path)
+				Dir.mkdir(path)
+			end
+			
+			path = File.join(Rails.root, "public/images/concursos",@concurso.id.to_s)
+			if !File.exists?(path)
+				Dir.mkdir(path)
+			end
+		end
 
 end

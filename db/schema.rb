@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101227221009) do
+ActiveRecord::Schema.define(:version => 20101230221102) do
 
   create_table "concorrentes", :force => true do |t|
     t.string   "nome"
@@ -61,6 +61,15 @@ ActiveRecord::Schema.define(:version => 20101227221009) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "dataRegisto"
+  end
+
+  create_table "tentativas", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "path"
+    t.boolean  "compilou"
+    t.integer  "enunciado_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

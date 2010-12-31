@@ -6,6 +6,8 @@ class EnunciadosController < ApplicationController
 	@enunciado = Enunciado.find(params[:id])
 	@function = Function.find(@enunciado.funcao_id)
 	@language = Language.find(@enunciado.linguagem_id)	
+	
+	@tentativa = Tentativa.new
   end
 
   def new
@@ -25,6 +27,7 @@ class EnunciadosController < ApplicationController
     if @enunciado.save
       flash[:success] = "Enunciado criado com sucesso!"
       redirect_to concurso_path(@concurso)
+	  createFolder
     else
       @title = "Novo enunciado"
       render 'new'
@@ -42,5 +45,19 @@ class EnunciadosController < ApplicationController
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
+	
+	
+	def createFolder
+		path = File.join(Rails.root, "public/images/concursos",@concurso.id.to_s,"enunciados")
+		if !File.exists?(path)
+			Dir.mkdir(path)
+		end
+		
+		path = File.join(Rails.root, "public/images/concursos",@concurso.id.to_s,"enunciados",@enunciado.id.to_s)
+#		flash[:error] = path
+		if !File.exists?(path)
+			Dir.mkdir(path)
+		end
+	end
     
 end

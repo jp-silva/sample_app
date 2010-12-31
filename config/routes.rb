@@ -1,5 +1,8 @@
 SampleApp::Application.routes.draw do
   
+# get "tentativas/index"
+# get "tentativas/create"
+# get "tentativas/destroy"
 # get "funcoes/index"
 # get "funcoes/new"
 # get "linguagens/index"
@@ -22,7 +25,7 @@ SampleApp::Application.routes.draw do
   resources :enunciados 
   resources :languages# , :only => [:new,:create,:destroy,:index]
   resources :functions #, :only => [:new,:create,:destroy,:index]  
-
+  resources :tentativas
   
   get "sessions/new"
 

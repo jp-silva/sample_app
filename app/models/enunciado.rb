@@ -17,6 +17,8 @@
 class Enunciado < ActiveRecord::Base
   belongs_to :concurso
   
+  has_many :tentativas
+  
   attr_accessible :titulo, :desc, :funcao_id, :peso, :linguagem_id
   
   validates :titulo, :presence=>true, :length => { :maximum => 100 }

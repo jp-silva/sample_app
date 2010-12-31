@@ -1,0 +1,11 @@
+<tr>
+	<td>
+		<% form_for(@tentativa,:html => { :multipart => true }) do |form| %>
+		<%= form.file_field :path %>
+		
+		<%= hidden_field_tag(:enunciado_id, @enunciado.id) %>
+		
+		<%= form.submit %>
+		<% end %>
+	</td>
+</tr>

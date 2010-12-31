@@ -1,3 +1,11 @@
+GIT
+  remote: http://github.com/thoughtbot/paperclip.git
+  revision: 8a3535d4375890267ac88f2b0a7c75e69e61cbe7
+  specs:
+    paperclip (2.3.8)
+      activerecord
+      activesupport
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -76,6 +84,7 @@ DEPENDENCIES
   annotate-models (= 1.0.4)
   faker (= 0.3.1)
   gravatar_image_tag (= 0.1.0)
+  paperclip!
   rails (= 3.0.3)
   sqlite3-ruby (= 1.3.1)
   will_paginate (= 3.0.pre2)
