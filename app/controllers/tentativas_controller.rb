@@ -24,6 +24,7 @@ class TentativasController < ApplicationController
 
   def show
 	@tentativa = Tentativa.find(params[:id])
+	@enunciado = Enunciado.find(@tentativa.enunciado_id)
   end
   
   
@@ -35,7 +36,7 @@ class TentativasController < ApplicationController
 
 		# cria o caminho físico do arquivo
 		filename = t.to_s(:number) + "-" + params[:tentativa][:path].original_filename
-		path = File.join(Rails.root, "public/images/concursos",@enunciado.concurso_id.to_s,"/enunciados",@enunciado.id.to_s,"user-"+current_user.id.to_s)
+		path = File.join(Rails.root, "data/concursos",@enunciado.concurso_id.to_s,"/enunciados",@enunciado.id.to_s,"user-"+current_user.id.to_s)
 		#completa o path com o nome do ficheiro
 		path = File.join(path,filename)
 
@@ -47,6 +48,9 @@ class TentativasController < ApplicationController
 		# escreve o arquivo no local designado
 		File.open(path, "wb") do |f| 
 			f.write(params[:tentativa][:path].read)
+		
+		#guarda na @tentativa.path o path onde ficou guardado o ficheiro
+		params[:tentativa][:path] = path
 		end
 
 

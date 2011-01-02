@@ -51,7 +51,9 @@ class ConcursosController < ApplicationController
   end
 
   def destroy
-      Concurso.find(params[:id]).destroy
+	  @concurso = Concurso.find(params[:id])
+	  deleteFolder
+      @concurso.destroy
       redirect_back_or concursos_path
   end
 
@@ -78,17 +80,29 @@ class ConcursosController < ApplicationController
     
 
 	private
-	
+				
 		def createFolder
-			path = File.join(Rails.root, "public/images/concursos")
+			path = File.join(Rails.root, "data/")
+			if !File.exists?(path)
+				Dir.mkdir(path)
+			end
+		
+			path = File.join(Rails.root, "data/concursos")
 			if !File.exists?(path)
 				Dir.mkdir(path)
 			end
 			
-			path = File.join(Rails.root, "public/images/concursos",@concurso.id.to_s)
+			path = File.join(Rails.root, "data/concursos",@concurso.id.to_s)
 			if !File.exists?(path)
 				Dir.mkdir(path)
 			end
 		end
-
+	
+		def deleteFolder
+			path = File.join(Rails.root, "data/concursos",@concurso.id.to_s)
+			if File.exists?(path)
+				flash[:success] = "MUITA SOPA!"
+				`rm -rf #{path}`
+			end
+		end
 end

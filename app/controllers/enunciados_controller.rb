@@ -35,8 +35,11 @@ class EnunciadosController < ApplicationController
   end
   
 	def destroy
-	  con = Enunciado.find(params[:id]).concurso_id 
-      Enunciado.find(params[:id]).destroy
+	  @enunciado = Enunciado.find(params[:id])
+	  con = @enunciado.concurso_id
+	  @concurso = Concurso.find(@enunciado.concurso_id)
+	  deleteFolder
+      @enunciado.destroy
       redirect_back_or concurso_path(Concurso.find(con))
 	end
 
@@ -48,15 +51,22 @@ class EnunciadosController < ApplicationController
 	
 	
 	def createFolder
-		path = File.join(Rails.root, "public/images/concursos",@concurso.id.to_s,"enunciados")
+		path = File.join(Rails.root, "data/concursos",@concurso.id.to_s,"enunciados")
 		if !File.exists?(path)
 			Dir.mkdir(path)
 		end
 		
-		path = File.join(Rails.root, "public/images/concursos",@concurso.id.to_s,"enunciados",@enunciado.id.to_s)
-#		flash[:error] = path
+		path = File.join(Rails.root, "data/concursos",@concurso.id.to_s,"enunciados",@enunciado.id.to_s)
+		
 		if !File.exists?(path)
 			Dir.mkdir(path)
+		end
+	end
+	
+	def deleteFolder
+		path = File.join(Rails.root, "data/concursos",@concurso.id.to_s,"enunciados",@enunciado.id.to_s)
+		if File.exists?(path)
+			`rm -rf #{path}`
 		end
 	end
     
