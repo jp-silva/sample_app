@@ -1,7 +1,7 @@
 # == Schema Information
-# Schema version: 20101227164221
+# Schema version: 20110102170455
 #
-# Table name: funcaos
+# Table name: functions
 #
 #  id         :integer         not null, primary key
 #  func       :string(255)

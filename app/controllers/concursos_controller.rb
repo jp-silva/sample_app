@@ -31,21 +31,13 @@ class ConcursosController < ApplicationController
   def show
     @concurso = Concurso.find(params[:id])
     @title = @concurso.tit
-    if signed_in?
-      d = participante(@concurso) 
-      if d
-        @participante = d
-      else
-        @participante = Participante.new 
-      end
-    end
-    
-    if(participante(@concurso))
-      if( ( tRestante(@concurso)>0 && participante(@concurso) )    || current_user.admin?) 
+
+    @participante = Participante.new 
+  
+    if(current_user.admin? || (( participante(@concurso) && tRestante(@concurso)>0 ) ) )
         @enunciados = @concurso.enunciados
-      else
+    else
         @enunciados = nil
-      end
     end
     
   end
@@ -65,21 +57,22 @@ class ConcursosController < ApplicationController
       redirect_to(root_path) unless current_user.admin?
     end
     
+    #verifica se é participante, se for retorna-o
     def participante(concurso)
-      return aux = Participante.where(:user_id=>current_user.id , :concurso_id=>@concurso.id).first
-    end
-    
-    def tAux(concurso)
-      participante(concurso).dataRegisto += concurso.dur.hour
-      return participante(concurso).dataRegisto.advance(:minutes=>concurso.dur.min)
-    end
-    
-    def tRestante(concurso)
-      return ((tAux(concurso) - DateTime.now) / 60).to_int
-    end
-    
+      aux = Participante.where(:user_id=>current_user.id , :concurso_id=>concurso.id).first
+    end  
 
-	private
+    #calcula hora do fim do concurso para o utilizador actual
+    def terminaC(concurso)
+      advanceMin = concurso.dur.hour*60 + concurso.dur.min
+      return participante(concurso).dataRegisto.advance(:minutes=> advanceMin)
+    end
+
+    #calcula o tempo que resta ao utilizador logado para continuar a participar
+    def tRestante(concurso)
+      return ((terminaC(concurso) - DateTime.now) / 60)
+    end
+
 				
 		def createFolder
 			path = File.join(Rails.root, "data/")
@@ -101,7 +94,6 @@ class ConcursosController < ApplicationController
 		def deleteFolder
 			path = File.join(Rails.root, "data/concursos",@concurso.id.to_s)
 			if File.exists?(path)
-				flash[:success] = "MUITA SOPA!"
 				`rm -rf #{path}`
 			end
 		end

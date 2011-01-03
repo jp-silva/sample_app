@@ -18,6 +18,7 @@ class Enunciado < ActiveRecord::Base
   belongs_to :concurso
   
   has_many :tentativas
+  has_many :testes, :class_name => 'Teste' 
   
   attr_accessible :titulo, :desc, :funcao_id, :peso, :linguagem_id
   

@@ -1,14 +1,36 @@
 class TentativasController < ApplicationController
-  def index
+    before_filter :admin_or_validParticipant, :only => [:create]
+    
+  def index      
+    if (params[:enunciado_id] && params[:user_id])
+      @user = current_user      
+      @enunciado = Enunciado.find(params[:enunciado_id])
+      @concurso = Concurso.find(@enunciado.concurso_id)
+      @tentativas = Tentativa.where(:user_id=>current_user.id, :enunciado_id=>@enunciado.id).paginate(:page => params[:page])
+    else
+      if (params[:user_id])
+        @user = current_user
+        @tentativas = Tentativa.where(:user_id=>current_user.id).paginate(:page => params[:page])
+      else
+        if (params[:enunciado_id])
+          @enunciado = Enunciado.find(params[:enunciado_id])
+          @concurso = Concurso.find(@enunciado.concurso_id)
+          @tentativas = @enunciado.tentativas.paginate(:page => params[:page])
+        else
+            @tentativas = Tentativa.all.paginate(:page => params[:page])
+      end
+    end
+  end
+    
   end
 
   def create
-	@enunciado = Enunciado.find(params[:enunciado_id])
-	params[:tentativa][:user_id] = current_user.id
-	auxPath
+  	@enunciado = Enunciado.find(params[:enunciado_id])
+  	params[:tentativa][:user_id] = current_user.id
+  	auxPath
+  	compileAndExecute
 	
-	
-	@tentativa = @enunciado.tentativas.build(params[:tentativa])
+  	@tentativa = @enunciado.tentativas.build(params[:tentativa])
     if @tentativa.save
       flash[:success] = "Tentativa submetida com sucesso!"
       redirect_to @tentativa
@@ -53,8 +75,53 @@ class TentativasController < ApplicationController
 		params[:tentativa][:path] = path
 		end
 
-
 	end
+	
+	def compileAndExecute
+	  path= params[:tentativa][:path]
+	  file = File.basename(path) 
+	  #dir passa a ser a pasta na qual trabalhamos
+	  dir = File.dirname(path)
+	  #se existir o ficheiro a.out apaga-o
+	  if File.exists?(dir + "/a.out")
+	    File.delete(dir + "/a.out")
+    end
+    #tenta compilar
+    `cd #{dir} && gcc #{file}`
+    flash[:error] = "cd "+ dir + "\n gcc " + file
+    #se a.out existe compilou, se nao, nao compilou
+    if File.exists?(dir + "/a.out")
+      params[:tentativa][:compilou] = true
+	    File.delete(dir + "/a.out")
+    else
+      params[:tentativa][:compilou] = false
+    end
+	  #flash[:error] = "gcc " + params[:tentativa][:path]
+	  #compileRes.empty? ? params[:tentativa][:compilou] = true : params[:tentativa][:compilou] = false
+  end
+  
+	#verifica se e admin ou um participante e ainda em tempo de participacao
+	def admin_or_validParticipant
+	  concurso = Concurso.find(Enunciado.find(params[:enunciado_id]).concurso_id)
+    redirect_to(root_path) unless 
+      (current_user.admin? || ( participante(concurso) && (tRestante(concurso) > 0) ) ) 
+  end
+  
+	#verifica se é participante, se for retorna-o
+  def participante(concurso)
+    aux = Participante.where(:user_id=>current_user.id , :concurso_id=>concurso.id).first
+  end
+  
+  #calcula hora do fim do concurso para o utilizador actual
+  def terminaC(concurso)
+    advanceMin = concurso.dur.hour*60 + concurso.dur.min
+    return participante(concurso).dataRegisto.advance(:minutes=> advanceMin)
+  end
+  
+  #calcula o tempo que resta ao utilizador logado para continuar a participar
+  def tRestante(concurso)
+    return ((terminaC(concurso) - DateTime.now) / 60)
+  end  
   
   
   

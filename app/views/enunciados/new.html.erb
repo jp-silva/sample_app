@@ -1,31 +1,43 @@
 <h1>Novo Enunciado</h1>
 
 <%= form_for @enunciado, new_enunciado_path(@enunciado, :concurso_id => params[:concurso_id]) do |f| %>
-  <%= render 'shared/error_messages', :object => f.object %>
-  <div class="field">
-    <%= f.label "Título:" %><br/>
-    <%= f.text_field :titulo %>
-  </div>
-  <div class="field">
-    <%= f.label "Descrição:" %><br/>
-    <%= f.text_field :desc %>
-  </div>
-  <div class="field">
-	<%= f.label "Peso:" %><br/>
-	<%= select_tag(:peso,options_for_select(nums)) %>%
-  </div>
-  <div class="field">
-	<%= f.label "Linguagem:" %><br/>
-	<%= select_tag(:linguagem_id,options_for_select(arrayLing)) %>
-  </div>
-  <div class="field">
-	<%= f.label "Função:" %><br/>
-	<%= select_tag(:funcao_id,options_for_select(arrayFunc)) %>
-  </div>
-  <div class="field">
-	<%= hidden_field_tag(:concurso_id, @concurso_id) %>
-	<%= hidden_field_tag :concurso_id, params[:concurso_id] %>
-  <div class="actions">
-    <%= f.submit "Criar" %>
-  </div>
+  	<%= render 'shared/error_messages', :object => f.object %>
+	<div class="field">
+    	<%= f.label "Título:" %><br/>
+		<%= f.text_field :titulo %>
+  	</div>
+  	<div class="field">
+    	<%= f.label "Descrição:" %><br/>
+    	<%= f.text_field :desc %>
+  	</div>
+  	<div class="field">
+		<%= f.label "Peso:" %><br/>
+		<%= select_tag(:peso,options_for_select(nums)) %>%
+  	</div>
+  	<div class="field">
+		<%= f.label "Linguagem:" %><br/>
+		<%= select_tag(:linguagem_id,options_for_select(arrayLing)) %>
+  	</div>
+	<div class="field">
+		<%= f.label "Função:" %><br/>
+		<%= select_tag(:funcao_id,options_for_select(arrayFunc)) %>
+	</div>
+	<div class="field">
+		<%= hidden_field_tag(:concurso_id, @concurso_id) %>
+		<%= hidden_field_tag :concurso_id, params[:concurso_id] %>
+	</div>
+	
+	<!--
+	<div id="testes">
+		<% @enunciado.testes.each_with_index do |teste, index| %>
+		  <%= render :partial => 'testes', :locals => { :teste => teste, :index => index } %>
+		<% end %>
+	</div>
+	<%= render :partial => 'add_teste_link', :locals => { :index => @enunciado.testes.size } %>
+	-->
+	
+	
+	<div class="actions">
+		<%= f.submit "Criar" %>
+	</div>
 <% end %>

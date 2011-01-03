@@ -1,5 +1,6 @@
 SampleApp::Application.routes.draw do
   
+# get "testes/index"
 # get "tentativas/index"
 # get "tentativas/create"
 # get "tentativas/destroy"
@@ -26,6 +27,7 @@ SampleApp::Application.routes.draw do
   resources :languages# , :only => [:new,:create,:destroy,:index]
   resources :functions #, :only => [:new,:create,:destroy,:index]  
   resources :tentativas
+  resources :testes#, :only => [:index]
   
   get "sessions/new"
 

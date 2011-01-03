@@ -1,0 +1,7 @@
+<li>
+	Nome: <%= teste.nome %><br\>
+	Input: <%= teste.input %><br\>
+	Output: <%= teste.output %><br\>
+  | <%= link_to "delete", teste, :method => :delete, :confirm => "You sure?",
+                                 :title => "Delete #{teste.nome}" %>
+</li>

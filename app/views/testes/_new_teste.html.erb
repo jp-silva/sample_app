@@ -1,0 +1,26 @@
+<% if @enunciado %>
+	<%= form_for @teste do |f| %>
+	  <%= render 'shared/error_messages', :object => f.object %>
+	  <br/>	
+	  <b>Nome:</b><br/>
+	  <div class="field">
+	    <%= f.text_field :nome %>
+	  </div>
+	  <b>Input:</b><br/>
+	  <div class="field">
+	    <%= f.text_area :input %>
+	  </div>
+	  <b>Output:</b><br/>
+	  <div class="field">
+	    <%= f.text_area :output %>
+	  </div>
+		<div class="field">
+			<%= hidden_field_tag(:enunciado_id, @enunciado.id) %>
+		</div>	
+	  <div class="actions">
+	    <%= f.submit "Submit" %>
+	  </div>
+	<% end %>
+<% else %>
+FAILBOAT	
+<% end %>

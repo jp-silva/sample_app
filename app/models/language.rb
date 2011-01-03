@@ -1,7 +1,7 @@
 # == Schema Information
-# Schema version: 20101227164221
+# Schema version: 20110102170455
 #
-# Table name: linguagems
+# Table name: languages
 #
 #  id         :integer         not null, primary key
 #  ling       :string(255)
