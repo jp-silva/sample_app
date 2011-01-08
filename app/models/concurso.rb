@@ -23,7 +23,7 @@ class Concurso < ActiveRecord::Base
   #attr_accessor :chave
   attr_accessible :tit, :chave, :inicio, :fim, :dur
   
-  validates :tit, :presence=>true, :length => { :maximum => 100 }
+  validates :tit, :presence=>true, :length => { :maximum => 100 }, :uniqueness => { :case_sensitive => false }
   validates :chave, :presence=>true, :length => { :maximum => 100 }
   validates :inicio, :presence=>true
   validates :fim, :presence=>true

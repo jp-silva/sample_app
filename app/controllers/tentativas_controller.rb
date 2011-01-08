@@ -1,5 +1,6 @@
 class TentativasController < ApplicationController
     before_filter :admin_or_validParticipant, :only => [:create]
+    before_filter :authenticate
     
   def index      
     if (params[:enunciado_id] && params[:user_id])
@@ -26,19 +27,25 @@ class TentativasController < ApplicationController
 
   def create
   	@enunciado = Enunciado.find(params[:enunciado_id])
-  	params[:tentativa][:user_id] = current_user.id
-  	auxPath
-  	compileAndExecute
-	
-  	@tentativa = @enunciado.tentativas.build(params[:tentativa])
-    if @tentativa.save
-      flash[:success] = "Tentativa submetida com sucesso!"
-      redirect_to @tentativa
-    else
-      @title = "Enunciado"
-      render @enunciado
-    end
 
+  	if (params[:tentativa])  	 
+  	  params[:tentativa][:user_id] = params[:user_id]
+	   
+    	auxPath
+    	compileAndExecute
+
+    	@tentativa = @enunciado.tentativas.build(params[:tentativa])
+      if @tentativa.save
+        flash[:success] = "Tentativa submetida com sucesso!"
+        redirect_to @tentativa
+      else
+        @title = "Enunciado"
+        render @enunciado
+      end
+    else
+      flash[:error] = "Nao selecionou nenhum ficheiro para submissao!"
+      redirect_to @enunciado
+    end      
   end
 
   def destroy
@@ -70,10 +77,10 @@ class TentativasController < ApplicationController
 		# escreve o arquivo no local designado
 		File.open(path, "wb") do |f| 
 			f.write(params[:tentativa][:path].read)
+		end
 		
 		#guarda na @tentativa.path o path onde ficou guardado o ficheiro
 		params[:tentativa][:path] = path
-		end
 
 	end
 	

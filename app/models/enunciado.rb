@@ -18,10 +18,11 @@ class Enunciado < ActiveRecord::Base
   belongs_to :concurso
   
   has_many :tentativas
-  has_many :testes, :class_name => 'Teste' 
+  has_many :tests#, :class_name => 'Teste' 
   
   attr_accessible :titulo, :desc, :funcao_id, :peso, :linguagem_id
   
+  validates_uniqueness_of :titulo, :scope => [:concurso_id]
   validates :titulo, :presence=>true, :length => { :maximum => 100 }
   validates :desc, :presence=>true, :length => { :maximum => 240 }
   validates :funcao_id, :presence=>true

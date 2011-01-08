@@ -1,5 +1,6 @@
 class ConcursosController < ApplicationController
    before_filter :admin_user,   :only => [:edit, :update, :new, :destroy, :create]
+   before_filter :authenticate
   
   def index
     @title = "Todos os concursos"

@@ -1,6 +1,7 @@
 class EnunciadosController < ApplicationController
   before_filter :admin_user,   :only => [:edit, :update, :new, :destroy, :create]
   before_filter :admin_or_validParticipant, :only => [:show]
+  before_filter :authenticate  
   
   def show
 	@title = "Enunciado"
@@ -32,7 +33,7 @@ class EnunciadosController < ApplicationController
     
     if @enunciado.save
       flash[:success] = "Enunciado criado com sucesso!"
-      redirect_to concurso_path(@concurso)
+      redirect_to tests_path(:enunciado_id=>@enunciado.id)
 	  createFolder
     else
       @title = "Novo enunciado"

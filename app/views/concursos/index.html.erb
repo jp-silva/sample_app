@@ -1,27 +1,27 @@
 <table class="concurso" summary="Informacao concurso">
 	<tr>
 		<td>
-			<h1>Concursos</h1>
+			<% if @concursos.empty? %>
+				<h1>Não existem concursos!</h1>
+			<% else %>
+				<h1>Concursos</h1>
 
 
-			<%= will_paginate %>
+				<%= will_paginate %>
 
-			<ul class="concursos">
-			  <%= render @concursos %>
-			</ul>
+				<ul class="concursos">
+				  <%= render @concursos %>
+				</ul>
 
-			<%= will_paginate %>
-		</td>
-
+				<%= will_paginate %>
+			</td>
+		<% end %>
+		
 		<td class="sidebar round">
 			<% if current_user.admin? %>
 				<%= link_to "Novo concurso",new_concurso_path %>
 			<% end%>
-			<br/>
-			<% if signed_in? %>
-				<b>link para concorrer se nao existir ainda na tabela ..</b>
-			<% end %>
 		</td>
-		
+	
 	</tr>
 </table>	

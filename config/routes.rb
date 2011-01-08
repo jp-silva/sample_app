@@ -27,7 +27,13 @@ SampleApp::Application.routes.draw do
   resources :languages# , :only => [:new,:create,:destroy,:index]
   resources :functions #, :only => [:new,:create,:destroy,:index]  
   resources :tentativas
-  resources :testes#, :only => [:index]
+  resources :tests#, :only => [:index]
+  
+  resource :tests do
+  collection do
+  get 'submit'
+  end
+  end
   
   get "sessions/new"
 

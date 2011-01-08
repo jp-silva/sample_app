@@ -7,7 +7,7 @@
 	<b>número de aluno</b> 
     	<span class="num"><%=concorrente.num %></span> <br/>
 	<b>criado em:</b>
-    	<span class="criado"><%=concorrente.created_at.inspect %></span> <br/>
+    	<span class="criado"><%=concorrente.created_at.strftime("%d/%m/%Y %H:%M:%S") %></span> <br/>
 	<% if signed_in? %>
 		<% if (current_user?(concorrente.user) || current_user.admin?)  %>
 		  <td>

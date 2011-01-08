@@ -8,7 +8,7 @@
   	</div>
   	<div class="field">
     	<%= f.label "Descrição:" %><br/>
-    	<%= f.text_field :desc %>
+    	<%= f.text_area :desc %>
   	</div>
   	<div class="field">
 		<%= f.label "Peso:" %><br/>
@@ -26,16 +26,6 @@
 		<%= hidden_field_tag(:concurso_id, @concurso_id) %>
 		<%= hidden_field_tag :concurso_id, params[:concurso_id] %>
 	</div>
-	
-	<!--
-	<div id="testes">
-		<% @enunciado.testes.each_with_index do |teste, index| %>
-		  <%= render :partial => 'testes', :locals => { :teste => teste, :index => index } %>
-		<% end %>
-	</div>
-	<%= render :partial => 'add_teste_link', :locals => { :index => @enunciado.testes.size } %>
-	-->
-	
 	
 	<div class="actions">
 		<%= f.submit "Criar" %>

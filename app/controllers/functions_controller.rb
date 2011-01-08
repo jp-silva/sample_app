@@ -1,5 +1,6 @@
 class FunctionsController < ApplicationController
   before_filter :admin_user,   :only => [:new, :destroy, :create,:index]
+  before_filter :authenticate
   
   def index
     @title = "Todos as funcoes de avaliacao"

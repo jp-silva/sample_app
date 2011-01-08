@@ -1,11 +1,15 @@
 <table class="profile" summary="Profile information">
   <tr>
     <td class="main">
-      <h1>
+      <h2>
         <%= gravatar_for @user %>
 		<%= !@user.admin? ? "Grupo " : "" %>
         <%= @user.name %>
-      </h1>
+      </h2>
+		
+		<b>E-mail: </b><%= @user.email %><br/>
+		<b>Criado em: </b><%= @user.created_at.strftime("%d/%m/%Y %H:%M:%S") %>
+		<br/><br/>
     
 
 		<% unless @user.concorrentes.empty? %>
